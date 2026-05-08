@@ -80,22 +80,26 @@
     --border: rgba(201,168,76,0.2);
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
     font-family: 'Lato', sans-serif;
     background: var(--navy);
     color: var(--white);
     overflow-x: hidden;
+    max-width: 100vw;
   }
 
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--navy); }
   ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
 
+  /* ─── SCROLL OFFSET for fixed header ─── */
+  section, #hero { scroll-margin-top: 70px; }
+
   /* ─── TOP BAR ─── */
   .top-bar {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 101;
+    position: relative; top: auto; left: auto; right: auto; z-index: 50;
     background: var(--gold);
     display: flex; align-items: center; justify-content: center; gap: 32px;
     padding: 7px 48px;
@@ -110,15 +114,19 @@
 
   /* ─── NAV ─── */
   nav {
-    position: fixed; top: 34px; left: 0; right: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 48px;
-    background: rgba(13,27,42,0.95);
+    padding: 16px 48px;
+    background: rgba(13,27,42,0.97);
     backdrop-filter: blur(16px);
     border-bottom: 0.5px solid var(--border);
-    transition: padding 0.3s, top 0.3s;
+    transition: padding 0.3s, background 0.3s, box-shadow 0.3s;
   }
-  nav.scrolled { padding: 12px 48px; top: 0; }
+  nav.scrolled {
+    padding: 10px 48px;
+    background: rgba(13,27,42,0.99);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
 
   .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
   .nav-logo svg { width: 40px; height: 40px; }
@@ -144,7 +152,8 @@
   /* ─── MOBILE NAV ─── */
   .burger {
     display: none; flex-direction: column; gap: 5px; cursor: pointer;
-    background: none; border: none; padding: 4px;
+    background: none; border: none; padding: 8px;
+    z-index: 102; position: relative;
   }
   .burger span {
     display: block; width: 22px; height: 2px;
@@ -157,9 +166,9 @@
 
   .mobile-menu {
     display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(13,27,42,0.97); backdrop-filter: blur(16px);
-    z-index: 99; flex-direction: column; align-items: center; justify-content: center;
-    gap: 32px;
+    background: rgba(13,27,42,0.98); backdrop-filter: blur(20px);
+    z-index: 200; flex-direction: column; align-items: center; justify-content: center;
+    gap: 28px;
   }
   .mobile-menu.open { display: flex; }
   .mobile-menu a {
@@ -179,7 +188,7 @@
     min-height: 100vh;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     text-align: center;
-    padding: 100px 24px 60px;
+    padding: 80px 24px 60px;
     position: relative; overflow: hidden;
   }
   .hero-bg {
@@ -208,10 +217,18 @@
   .corner-bl { bottom: 60px; left: 48px; border-bottom: 1px solid var(--gold); border-left: 1px solid var(--gold); }
   .corner-br { bottom: 60px; right: 48px; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
 
-  .hero-content { position: relative; z-index: 1; max-width: 760px; }
+  .hero-content { position: relative; z-index: 1; max-width: 760px; text-align: center; display: flex; flex-direction: column; align-items: center; }
   .hero-logo {
-    width: 110px; height: 110px; margin: 0 auto 28px;
+    width: auto; max-width: 320px; height: 160px;
+    margin: 0 auto 32px;
+    border-radius: 12px;
+    object-fit: contain;
+    background: #111827;
+    border: 1.5px solid rgba(201,168,76,0.4);
+    box-shadow: 0 0 0 6px rgba(201,168,76,0.07), 0 8px 40px rgba(0,0,0,0.5);
     animation: float 5s ease-in-out infinite;
+    display: block;
+    padding: 8px 16px;
   }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
@@ -222,6 +239,7 @@
     background: var(--gold-pale); border: 0.5px solid var(--border);
     color: var(--gold); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
     padding: 6px 18px; border-radius: 1px; margin-bottom: 24px;
+    text-align: center;
   }
   .hero h1 {
     font-family: 'Cinzel', serif;
@@ -242,7 +260,7 @@
   .btn {
     display: inline-block; text-decoration: none;
     font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 14px 32px; border-radius: 2px;
+    padding: 16px 36px; border-radius: 2px;
     transition: all 0.25s; cursor: pointer; border: none;
   }
   .btn-gold { background: var(--gold); color: var(--navy); }
@@ -299,18 +317,27 @@
   #about { background: var(--navy-mid); }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
   .about-visual { position: relative; display: flex; align-items: center; justify-content: center; }
-  .about-ring {
-    width: 320px; height: 320px; border-radius: 50%;
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
+  .about-logo-frame {
     position: relative;
+    padding: 32px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(13,27,42,0.6);
+    display: flex; align-items: center; justify-content: center;
   }
-  .about-ring::before {
+  .about-logo-frame::before {
     content: '';
-    position: absolute; inset: 16px; border-radius: 50%;
+    position: absolute; inset: 8px;
     border: 0.5px solid rgba(201,168,76,0.1);
+    border-radius: 4px;
+    pointer-events: none;
   }
-  .about-ring-logo { width: 160px; height: 160px; }
+  .about-logo-frame img {
+    width: 100%; max-width: 280px; height: auto;
+    display: block;
+  }
+  /* keep about-ring for mobile fallback */
+  .about-ring { display: none; }
   .about-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
   .pillar {
     padding: 18px 16px;
@@ -348,7 +375,7 @@
   .program-divider { width: 32px; height: 1px; background: var(--gold); margin: 16px 0; }
 
   /* ─── GALLERY / CAROUSEL ─── */
-  #gallery { background: var(--navy-mid); overflow: hidden; padding: 96px 0; }
+  #gallery { background: var(--navy-mid); overflow: hidden; padding: 96px 0; max-width: 100%; }
   #gallery .wrap { padding-inline: clamp(18px,5vw,52px); }
 
   .carousel-track-wrap {
@@ -356,12 +383,15 @@
     mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     margin-top: 48px;
+    max-width: 100vw;
   }
   .carousel-track {
     display: flex; gap: 16px;
     width: max-content;
     animation: carousel-scroll 30s linear infinite;
+    animation-play-state: paused;
   }
+  .carousel-track.loaded { animation-play-state: running; }
   .carousel-track:hover { animation-play-state: paused; }
   @keyframes carousel-scroll {
     from { transform: translateX(0); }
@@ -380,6 +410,12 @@
     object-fit: cover;
     display: block;
     transition: transform 0.5s ease;
+    background: var(--navy-light);
+  }
+  /* Placeholder for unloaded images */
+  .carousel-slide img[src=""] ,
+  .carousel-slide img:not([src]) {
+    background: var(--navy-light);
   }
   .carousel-slide:hover img { transform: scale(1.05); }
   .carousel-slide::after {
@@ -551,6 +587,49 @@
 
   .map-wrap { margin-top: 24px; }
 
+  /* ─── PARTNERS ─── */
+  #partners {
+    background: var(--off-white);
+    padding: 56px 0;
+    border-top: 4px solid var(--gold);
+    overflow: hidden;
+  }
+  #partners .wrap { padding-inline: clamp(18px,5vw,52px); margin-bottom: 36px; }
+  .partners-label {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--navy-mid); text-align: center; opacity: 0.5;
+  }
+  .partners-track-wrap {
+    position: relative; overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+  .partners-track {
+    display: flex; align-items: center; gap: 48px;
+    width: max-content;
+    animation: partners-scroll 24s linear infinite;
+  }
+  .partners-track:hover { animation-play-state: paused; }
+  @keyframes partners-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .partner-slide {
+    flex-shrink: 0;
+    width: 140px; height: 72px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .partner-slide img {
+    max-width: 130px; max-height: 64px;
+    width: auto; height: auto;
+    object-fit: contain;
+    display: block;
+    opacity: 0.6;
+    filter: grayscale(20%);
+    transition: opacity 0.3s, filter 0.3s;
+  }
+  .partner-slide img:hover { opacity: 1; filter: grayscale(0%); }
+
   /* ─── FOOTER ─── */
   footer {
     background: var(--navy); border-top: 0.5px solid var(--border);
@@ -572,24 +651,92 @@
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* ─── MASTER ─── */
+  #master { background: var(--navy); }
+  .master-grid {
+    display: grid; grid-template-columns: 380px 1fr; gap: 80px; align-items: center;
+  }
+  .master-img-wrap {
+    position: relative;
+  }
+  .master-img-wrap::before {
+    content: '';
+    position: absolute; top: 16px; left: 16px; right: -16px; bottom: -16px;
+    border: 1px solid var(--border); border-radius: 2px;
+    z-index: 0;
+  }
+  .master-img-wrap img {
+    position: relative; z-index: 1;
+    width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top;
+    border-radius: 2px; display: block;
+    filter: contrast(1.05);
+  }
+  .master-dan {
+    position: absolute; bottom: 24px; left: -24px; z-index: 2;
+    background: var(--gold); color: var(--navy);
+    padding: 12px 20px; border-radius: 2px;
+    font-family: 'Cinzel', serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; line-height: 1.4;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .master-quote {
+    margin: 32px 0;
+    padding: 28px 32px;
+    background: var(--gold-pale);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 2px 2px 0;
+    position: relative;
+  }
+  .master-quote::before {
+    content: '\201C';
+    position: absolute; top: -8px; left: 20px;
+    font-family: 'Cinzel', serif; font-size: 72px; color: var(--gold); opacity: 0.25; line-height: 1;
+  }
+  .master-quote p {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(14px, 1.6vw, 17px);
+    font-style: italic; color: var(--gold-light);
+    line-height: 1.75; margin: 0;
+  }
+  .master-body {
+    font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.65);
+    line-height: 1.85; margin-bottom: 16px;
+  }
+  .master-pillars {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;
+  }
+  .master-pill {
+    padding: 6px 16px;
+    border: 0.5px solid var(--border); border-radius: 20px;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); background: var(--gold-pale);
+  }
+
   /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
-    .top-bar { display: none; }
-    nav { padding: 14px 20px; top: 0; }
+    .top-bar { padding: 7px 16px; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    nav { padding: 12px 20px; }
     .nav-links { display: none; }
-    .burger { display: flex; }
+    .burger { display: flex !important; }
     section { padding: 64px 20px; }
     #gallery { padding: 64px 0; }
     #gallery .wrap { padding-inline: 20px; }
-    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-grid, .contact-grid, .master-grid { grid-template-columns: 1fr; gap: 40px; }
     .programs-grid, .reviews-grid, .videos-grid { grid-template-columns: 1fr; }
     .stats-bar { grid-template-columns: repeat(2, 1fr); }
     .form-row { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 16px; text-align: center; }
+    footer { flex-direction: column; gap: 16px; text-align: center; footer-links { flex-wrap: wrap; justify-content: center; } }
     .corner { display: none; }
-    .about-ring { width: 220px; height: 220px; }
-    .about-ring-logo { width: 110px; height: 110px; }
-    .carousel-slide { width: 260px; height: 195px; }
+    .about-logo-frame { padding: 20px; }
+    .about-logo-frame img { max-width: 240px; }
+    .carousel-slide { width: 240px; height: 180px; }
+    .hero-logo { max-width: 260px; height: 130px; }
+    .master-img-wrap::before { display: none; }
+    .master-dan { left: 0; bottom: 16px; }
+    .master-grid { grid-template-columns: 1fr; }
+    .schedule-table { font-size: 12px; }
+    .schedule-table th, .schedule-table td { padding: 10px 12px; }
+    .footer-links { flex-wrap: wrap; justify-content: center; gap: 12px; }
   }
 </style>
 </head>
@@ -621,6 +768,7 @@
 <!-- ─── MOBILE MENU ─── -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#master" onclick="closeMobileMenu()">Master Tom</a>
   <a href="#programs" onclick="closeMobileMenu()">Programs</a>
   <a href="#gallery" onclick="closeMobileMenu()">Gallery</a>
   <a href="#videos" onclick="closeMobileMenu()">Videos</a>
@@ -650,9 +798,7 @@
 <!-- ─── NAV ─── -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
-    <svg viewBox="0 0 100 100" fill="var(--gold)">
-      <use href="#pegasus"/>
-    </svg>
+    <img src="img/logo.JPEG" alt="Pegasus Taekwondo Logo" style="width:64px;height:36px;object-fit:contain;background:#111827;border-radius:4px;border:1px solid rgba(201,168,76,0.3);flex-shrink:0;padding:2px 4px;">
     <div class="nav-logo-text">
       <div class="nav-logo-name">Pegasus Taekwondo</div>
       <div class="nav-logo-sub">London · Est. tradition</div>
@@ -660,6 +806,7 @@
   </a>
   <div class="nav-links">
     <a href="#about">About</a>
+    <a href="#master">Master Tom</a>
     <a href="#programs">Programs</a>
     <a href="#gallery">Gallery</a>
     <a href="#videos">Videos</a>
@@ -682,9 +829,7 @@
   <div class="corner corner-br"></div>
 
   <div class="hero-content">
-    <svg class="hero-logo" viewBox="0 0 100 100" fill="var(--gold)">
-      <use href="#pegasus"/>
-    </svg>
+    <img src="img/logo.JPEG" alt="Pegasus Taekwondo" class="hero-logo" style="border-radius:8px;object-fit:contain;">
     <div class="hero-badge">Korean Traditional Martial Arts · London N15</div>
     <h1>Rise Above.<br><em>Train with Purpose.</em></h1>
     <p class="hero-sub">Pegasus Taekwondo</p>
@@ -755,10 +900,40 @@
     </div>
 
     <div class="about-visual reveal">
-      <div class="about-ring">
-        <svg class="about-ring-logo" viewBox="0 0 100 100" fill="var(--gold)">
-          <use href="#pegasus"/>
-        </svg>
+      <div class="about-logo-frame">
+        <img src="img/logo.JPEG" alt="Pegasus Taekwondo Logo">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MASTER TOM ─── -->
+<section id="master">
+  <div class="master-grid">
+    <div class="master-img-wrap reveal">
+      <img src="img/master.PNG" alt="Grandmaster Tom — Pegasus Taekwondo">
+      <div class="master-dan">7th Dan<br>Black Belt</div>
+    </div>
+
+    <div>
+      <p class="section-label reveal">The heart of Pegasus</p>
+      <h2 class="section-title reveal">Meet Grandmaster Tom</h2>
+      <div class="divider reveal"></div>
+
+      <p class="master-body reveal">For Master Tom, Taekwondo has never simply been a sport — it is a lifelong passion and a way of life built on discipline, respect, family, and personal growth. As a 7th Dan Black Belt, he has dedicated countless years to helping students become stronger not only physically, but mentally and emotionally.</p>
+
+      <div class="master-quote reveal">
+        <p>My goal has always been bigger than Taekwondo itself. I want every student to walk into Pegasus feeling supported, valued, and capable of achieving greatness. One day, I hope my students look back and remember the confidence, discipline, memories, and family we built together.</p>
+      </div>
+
+      <p class="master-body reveal">To us, Master Tom is far more than an instructor — he is a mentor, role model, and father figure who genuinely cares about every single student. His values, dedication, and warmth are what make Pegasus Taekwondo so special.</p>
+
+      <div class="master-pillars reveal">
+        <span class="master-pill">Discipline</span>
+        <span class="master-pill">Respect</span>
+        <span class="master-pill">Family</span>
+        <span class="master-pill">Growth</span>
+        <span class="master-pill">7th Dan Black Belt</span>
       </div>
     </div>
   </div>
@@ -805,19 +980,19 @@
   <div class="carousel-track-wrap" style="margin-top: 48px;">
     <div class="carousel-track" id="carouselTrack">
       <!-- First set -->
-      <div class="carousel-slide"><img src="img/img1.jpg" alt="Pegasus Taekwondo training" loading="lazy"></div>
-      <div class="carousel-slide"><img src="img/img2.jpg" alt="Taekwondo class Tottenham" loading="lazy"></div>
-      <div class="carousel-slide"><img src="img/img3.jpg" alt="Kids martial arts London" loading="lazy"></div>
-      <div class="carousel-slide"><img src="img/img4.jpg" alt="Taekwondo students London N15" loading="lazy"></div>
-      <div class="carousel-slide"><img src="img/img5.jpg" alt="Pegasus Taekwondo dojang" loading="lazy"></div>
-      <div class="carousel-slide"><img src="img/img6.jpg" alt="Taekwondo grading ceremony" loading="lazy"></div>
+      <div class="carousel-slide"><img src="img/img1.JPEG" alt="Pegasus Taekwondo training"></div>
+      <div class="carousel-slide"><img src="img/img2.JPEG" alt="Taekwondo class Tottenham"></div>
+      <div class="carousel-slide"><img src="img/img3.JPEG" alt="Kids martial arts London"></div>
+      <div class="carousel-slide"><img src="img/img4.JPEG" alt="Taekwondo students London N15"></div>
+      <div class="carousel-slide"><img src="img/img5.JPEG" alt="Pegasus Taekwondo dojang"></div>
+      <div class="carousel-slide"><img src="img/img6.JPEG" alt="Taekwondo grading ceremony"></div>
       <!-- Duplicate set for seamless loop -->
-      <div class="carousel-slide"><img src="img/img1.jpg" alt="Pegasus Taekwondo training" loading="lazy"></div>
-      <div class="carousel-slide"><img src="img/img2.jpg" alt="Taekwondo class Tottenham" loading="lazy"></div>
-      <div class="carousel-slide"><img src="img/img3.jpg" alt="Kids martial arts London" loading="lazy"></div>
-      <div class="carousel-slide"><img src="img/img4.jpg" alt="Taekwondo students London N15" loading="lazy"></div>
-      <div class="carousel-slide"><img src="img/img5.jpg" alt="Pegasus Taekwondo dojang" loading="lazy"></div>
-      <div class="carousel-slide"><img src="img/img6.jpg" alt="Taekwondo grading ceremony" loading="lazy"></div>
+      <div class="carousel-slide"><img src="img/img1.JPEG" alt="Pegasus Taekwondo training"></div>
+      <div class="carousel-slide"><img src="img/img2.JPEG" alt="Taekwondo class Tottenham"></div>
+      <div class="carousel-slide"><img src="img/img3.JPEG" alt="Kids martial arts London"></div>
+      <div class="carousel-slide"><img src="img/img4.JPEG" alt="Taekwondo students London N15"></div>
+      <div class="carousel-slide"><img src="img/img5.JPEG" alt="Pegasus Taekwondo dojang"></div>
+      <div class="carousel-slide"><img src="img/img6.JPEG" alt="Taekwondo grading ceremony"></div>
     </div>
   </div>
 </section>
@@ -828,13 +1003,13 @@
   <h2 class="section-title reveal">Patterns in motion</h2>
   <div class="divider reveal"></div>
   <div class="videos-intro reveal">
-    <p class="section-body">Taekwondo patterns (Tul) are sequences of movements practised to develop technique, balance, and discipline. Watch our students demonstrate the first three ITF patterns.</p>
+    <p class="section-body">Taekwondo patterns (Tul) are sequences of movements practised to develop technique, balance, and discipline. Watch our students demonstrate ITF patterns — or browse all 26 videos on our YouTube channel.</p>
   </div>
 
   <div class="videos-grid">
-    <a class="video-card reveal" href="https://www.youtube.com/watch?v=nk0nF7cQ0Dc" target="_blank" rel="noopener">
+    <a class="video-card reveal" href="https://www.youtube.com/watch?v=nk0nF7cQ0Dc" target="_blank" rel="noopener noreferrer">
       <div class="video-thumb-wrap">
-        <img src="https://i.ytimg.com/vi/nk0nF7cQ0Dc/hqdefault.jpg" alt="Pattern 1 Chon-Ji Taekwondo" loading="lazy">
+        <img src="https://i.ytimg.com/vi/nk0nF7cQ0Dc/hqdefault.jpeg" alt="Pattern 1 Chon-Ji Taekwondo" loading="lazy">
         <div class="video-thumb-overlay"></div>
         <div class="video-play-btn">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -848,9 +1023,9 @@
       </div>
     </a>
 
-    <a class="video-card reveal" href="https://www.youtube.com/watch?v=Zx1wNS_Cx9I" target="_blank" rel="noopener">
+    <a class="video-card reveal" href="https://www.youtube.com/watch?v=Zx1wNS_Cx9I" target="_blank" rel="noopener noreferrer">
       <div class="video-thumb-wrap">
-        <img src="https://i.ytimg.com/vi/Zx1wNS_Cx9I/hqdefault.jpg" alt="Pattern 2 Dan-Gun Taekwondo" loading="lazy">
+        <img src="https://i.ytimg.com/vi/Zx1wNS_Cx9I/hqdefault.jpeg" alt="Pattern 2 Dan-Gun Taekwondo" loading="lazy">
         <div class="video-thumb-overlay"></div>
         <div class="video-play-btn">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -864,9 +1039,9 @@
       </div>
     </a>
 
-    <a class="video-card reveal" href="https://www.youtube.com/watch?v=zZGzZsLK6q8" target="_blank" rel="noopener">
+    <a class="video-card reveal" href="https://www.youtube.com/watch?v=zZGzZsLK6q8" target="_blank" rel="noopener noreferrer">
       <div class="video-thumb-wrap">
-        <img src="https://i.ytimg.com/vi/zZGzZsLK6q8/hqdefault.jpg" alt="Pattern 3 Do-San Taekwondo" loading="lazy">
+        <img src="https://i.ytimg.com/vi/zZGzZsLK6q8/hqdefault.jpeg" alt="Pattern 3 Do-San Taekwondo" loading="lazy">
         <div class="video-thumb-overlay"></div>
         <div class="video-play-btn">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -878,6 +1053,13 @@
         <div class="video-desc">Named after patriot Ahn Chang-Ho. Introduces new techniques and directional movements.</div>
         <div class="video-yt-badge">▶ Watch on YouTube</div>
       </div>
+    </a>
+  </div>
+
+  <div style="text-align:center; margin-top:48px;">
+    <a href="https://www.youtube.com/@PegasusTaekwondo" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="display:inline-flex;align-items:center;gap:10px;">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5V8.5l6.5 3.5-6.5 3.5z"/></svg>
+      Browse all 26 videos on YouTube
     </a>
   </div>
 </section>
@@ -1057,17 +1239,41 @@
   </div>
 </section>
 
+<!-- ─── PARTNERS ─── -->
+<section id="partners">
+  <div class="wrap">
+    <p class="partners-label">Our trusted partners</p>
+  </div>
+  <div class="partners-track-wrap">
+    <div class="partners-track" id="partnersTrack">
+      <!-- First set -->
+      <div class="partner-slide"><img src="img/partner1.PNG" alt="Partner"></div>
+      <div class="partner-slide"><img src="img/partner2.PNG" alt="Partner"></div>
+      <div class="partner-slide"><img src="img/partner3.PNG" alt="Partner"></div>
+      <div class="partner-slide"><img src="img/partner4.PNG" alt="Partner"></div>
+      <div class="partner-slide"><img src="img/partner5.PNG" alt="Partner"></div>
+      <div class="partner-slide"><img src="img/partner6.PNG" alt="Partner"></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="partner-slide"><img src="img/partner1.PNG" alt="Partner"></div>
+      <div class="partner-slide"><img src="img/partner2.PNG" alt="Partner"></div>
+      <div class="partner-slide"><img src="img/partner3.PNG" alt="Partner"></div>
+      <div class="partner-slide"><img src="img/partner4.PNG" alt="Partner"></div>
+      <div class="partner-slide"><img src="img/partner5.PNG" alt="Partner"></div>
+      <div class="partner-slide"><img src="img/partner6.PNG" alt="Partner"></div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── FOOTER ─── -->
 <footer>
   <div class="footer-logo">
-    <svg viewBox="0 0 100 100" fill="var(--gold)">
-      <use href="#pegasus"/>
-    </svg>
+    <img src="img/logo.JPEG" alt="Pegasus Taekwondo" style="width:40px;height:40px;object-fit:cover;object-position:center;border-radius:50%;border:1px solid var(--gold);background:#1a1a1a;">
     <div class="footer-text">Pegasus Taekwondo</div>
   </div>
   <div class="footer-copy">© 2026 Pegasus Taekwondo · London N15</div>
   <div class="footer-links">
     <a href="#about">About</a>
+    <a href="#master">Master Tom</a>
     <a href="#programs">Programs</a>
     <a href="#gallery">Gallery</a>
     <a href="#videos">Videos</a>
@@ -1159,8 +1365,24 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   /* ── Pause carousel on reduced motion ─── */
+  const track = document.getElementById('carouselTrack');
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.getElementById('carouselTrack').style.animationPlayState = 'paused';
+    track.style.animationPlayState = 'paused';
+  } else {
+    // Start animation once all carousel images have loaded
+    const carouselImgs = track.querySelectorAll('img');
+    let loaded = 0;
+    const total = carouselImgs.length;
+    function checkLoaded() {
+      loaded++;
+      if (loaded >= total) track.classList.add('loaded');
+    }
+    carouselImgs.forEach(img => {
+      if (img.complete) { checkLoaded(); }
+      else { img.addEventListener('load', checkLoaded); img.addEventListener('error', checkLoaded); }
+    });
+    // Fallback: start after 2s regardless
+    setTimeout(() => track.classList.add('loaded'), 2000);
   }
 </script>
 
