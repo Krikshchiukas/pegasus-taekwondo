@@ -75,16 +75,16 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --navy: #0d1b2a;
-    --navy-mid: #16213e;
-    --navy-light: #1e2f50;
+    --navy: #141416;
+    --navy-mid: #1a1a1e;
+    --navy-light: #222228;
     --gold: #c9a84c;
     --gold-light: #e8c96a;
-    --gold-pale: rgba(201,168,76,0.12);
+    --gold-pale: rgba(201,168,76,0.10);
     --white: #ffffff;
     --off-white: #f5f2eb;
     --muted: rgba(255,255,255,0.55);
-    --border: rgba(201,168,76,0.2);
+    --border: rgba(201,168,76,0.18);
   }
 
   html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -125,14 +125,14 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 48px;
-    background: rgba(13,27,42,0.97);
+    background: rgba(20,20,22,0.97);
     backdrop-filter: blur(16px);
     border-bottom: 0.5px solid var(--border);
     transition: padding 0.3s, background 0.3s, box-shadow 0.3s;
   }
   nav.scrolled {
     padding: 10px 48px;
-    background: rgba(13,27,42,0.99);
+    background: rgba(20,20,22,0.99);
     box-shadow: 0 4px 24px rgba(0,0,0,0.4);
   }
 
@@ -174,7 +174,7 @@
 
   .mobile-menu {
     display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(13,27,42,0.98); backdrop-filter: blur(20px);
+    background: rgba(20,20,22,0.98); backdrop-filter: blur(20px);
     z-index: 200; flex-direction: column; align-items: center; justify-content: center;
     gap: 28px;
   }
@@ -368,12 +368,7 @@
     transition: transform 0.3s, box-shadow 0.3s;
   }
   .program-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-  .program-card::before {
-    content: attr(data-num);
-    position: absolute; top: -10px; right: 16px;
-    font-family: 'Cinzel', serif; font-size: 80px; font-weight: 700;
-    color: rgba(201,168,76,0.05); line-height: 1;
-  }
+  .program-card::before { content: none; }
   .program-age {
     display: inline-block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--gold); background: var(--gold-pale);
@@ -718,18 +713,14 @@
     background: rgba(201,168,76,0.18);
     border-color: rgba(201,168,76,0.4);
   }
-  .tenet-num {
-    font-family: 'Cinzel', serif; font-size: 9px;
-    color: var(--gold); opacity: 0.45; letter-spacing: 0.1em;
-    display: block; margin-bottom: 6px;
-  }
+  .tenet-num { display: none; }
   .tenet-korean {
-    display: block; font-size: 17px; color: var(--gold); font-weight: 600; line-height: 1.2;
-    margin-bottom: 6px;
+    display: block; font-size: 11px; color: rgba(201,168,76,0.45); font-weight: 400;
+    letter-spacing: 0.06em; margin-top: 4px; line-height: 1.2;
   }
   .tenet-eng {
-    display: block; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: rgba(255,255,255,0.55);
+    display: block; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--white); font-weight: 600;
   }
 
   /* ─── MASTER ─── */
@@ -992,11 +983,11 @@
       <div class="tenets-card">
         <p class="tenets-label">The Five Tenets of Taekwondo</p>
         <div class="tenets-grid">
-          <div class="tenet-box"><span class="tenet-num">01</span><span class="tenet-korean">예의</span><span class="tenet-eng">Courtesy</span></div>
-          <div class="tenet-box"><span class="tenet-num">02</span><span class="tenet-korean">염치</span><span class="tenet-eng">Integrity</span></div>
-          <div class="tenet-box"><span class="tenet-num">03</span><span class="tenet-korean">인내</span><span class="tenet-eng">Perseverance</span></div>
-          <div class="tenet-box"><span class="tenet-num">04</span><span class="tenet-korean">극기</span><span class="tenet-eng">Self-Control</span></div>
-          <div class="tenet-box tenet-last"><span class="tenet-num">05</span><span class="tenet-korean">백절불굴</span><span class="tenet-eng">Indomitable Spirit</span></div>
+          <div class="tenet-box"><span class="tenet-num">01</span><span class="tenet-eng">Courtesy</span><span class="tenet-korean">예의</span></div>
+          <div class="tenet-box"><span class="tenet-num">02</span><span class="tenet-eng">Integrity</span><span class="tenet-korean">염치</span></div>
+          <div class="tenet-box"><span class="tenet-num">03</span><span class="tenet-eng">Perseverance</span><span class="tenet-korean">인내</span></div>
+          <div class="tenet-box"><span class="tenet-num">04</span><span class="tenet-eng">Self-Control</span><span class="tenet-korean">극기</span></div>
+          <div class="tenet-box tenet-last"><span class="tenet-num">05</span><span class="tenet-eng">Indomitable Spirit</span><span class="tenet-korean">백절불굴</span></div>
         </div>
       </div>
     </div>
