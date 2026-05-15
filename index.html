@@ -105,20 +105,7 @@
   section, #hero { scroll-margin-top: 70px; }
   #book-trial { scroll-margin-top: 90px; }
 
-  /* ─── TOP BAR ─── */
-  .top-bar {
-    position: relative; top: auto; left: auto; right: auto; z-index: 50;
-    background: var(--gold);
-    display: flex; align-items: center; justify-content: center; gap: 32px;
-    padding: 7px 48px;
-    font-size: 12px; color: var(--navy);
-    letter-spacing: 0.03em;
-  }
-  .top-bar-item { display: flex; align-items: center; gap: 7px; }
-  .top-bar-item a { color: var(--navy); text-decoration: none; }
-  .top-bar-item a:hover { text-decoration: underline; }
-  .top-bar-sep { opacity: 0.3; }
-  .top-bar-stars { letter-spacing: 2px; font-size: 11px; }
+
 
   /* ─── NAV ─── */
   nav {
@@ -194,9 +181,9 @@
   /* ─── HERO ─── */
   #hero {
     min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
     text-align: center;
-    padding: 120px 24px 100px;
+    padding: 45px 24px 85px;
     position: relative; overflow: hidden;
     background: #141416;
   }
@@ -806,7 +793,7 @@
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
-    .top-bar { padding: 7px 16px; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
     nav { padding: 12px 20px; }
     .nav-links { display: none; }
     .burger { display: flex !important; }
@@ -873,22 +860,6 @@
 </div>
 
 <!-- ─── TOP BAR ─── -->
-<div class="top-bar">
-  <div class="top-bar-item">
-    <span>📞</span>
-    <a href="tel:07984004647">07984 004647</a>
-  </div>
-  <span class="top-bar-sep">|</span>
-  <div class="top-bar-item">
-    <span>✉</span>
-    <a href="mailto:info@pegasustaekwondo.co.uk">info@pegasustaekwondo.co.uk</a>
-  </div>
-  <span class="top-bar-sep">|</span>
-  <div class="top-bar-item">
-    <span class="top-bar-stars">★★★★★</span>
-    <span>4.9 Google Rating</span>
-  </div>
-</div>
 
 <!-- ─── NAV ─── -->
 <nav id="navbar">
