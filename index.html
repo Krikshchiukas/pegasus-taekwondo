@@ -709,6 +709,8 @@
     gap: 16px;
     text-align: left;
     transition: background 0.2s, border-color 0.2s;
+    min-width: 0;
+    overflow: hidden;
   }
   .tenet-box:hover {
     background: rgba(201,168,76,0.18);
@@ -721,9 +723,11 @@
     font-family: 'Cinzel', serif; font-size: 11px; font-weight: 700;
     color: var(--gold); letter-spacing: 0.05em;
   }
+  .tenet-text { flex: 1; min-width: 0; }
   .tenet-eng {
-    display: block; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    display: block; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--white); font-weight: 600;
+    white-space: normal; word-break: break-word;
   }
   .tenet-korean {
     display: block; font-size: 11px; color: rgba(201,168,76,0.45); font-weight: 400;
@@ -974,11 +978,11 @@
       <div class="tenets-card">
         <p class="tenets-label">The Five Tenets of Taekwondo</p>
         <div class="tenets-grid">
-          <div class="tenet-box"><span class="tenet-num">01</span><span class="tenet-eng">Courtesy</span><span class="tenet-korean">예의</span></div>
-          <div class="tenet-box"><span class="tenet-num">02</span><span class="tenet-eng">Integrity</span><span class="tenet-korean">염치</span></div>
-          <div class="tenet-box"><span class="tenet-num">03</span><span class="tenet-eng">Perseverance</span><span class="tenet-korean">인내</span></div>
-          <div class="tenet-box"><span class="tenet-num">04</span><span class="tenet-eng">Self-Control</span><span class="tenet-korean">극기</span></div>
-          <div class="tenet-box tenet-last"><span class="tenet-num">05</span><span class="tenet-eng">Indomitable Spirit</span><span class="tenet-korean">백절불굴</span></div>
+          <div class="tenet-box"><span class="tenet-num">01</span><div class="tenet-text"><span class="tenet-eng">Courtesy</span><span class="tenet-korean">예의</span></div></div>
+          <div class="tenet-box"><span class="tenet-num">02</span><div class="tenet-text"><span class="tenet-eng">Integrity</span><span class="tenet-korean">염치</span></div></div>
+          <div class="tenet-box"><span class="tenet-num">03</span><div class="tenet-text"><span class="tenet-eng">Perseverance</span><span class="tenet-korean">인내</span></div></div>
+          <div class="tenet-box"><span class="tenet-num">04</span><div class="tenet-text"><span class="tenet-eng">Self-Control</span><span class="tenet-korean">극기</span></div></div>
+          <div class="tenet-box tenet-last"><span class="tenet-num">05</span><div class="tenet-text"><span class="tenet-eng">Indomitable Spirit</span><span class="tenet-korean">백절불굴</span></div></div>
         </div>
       </div>
     </div>
