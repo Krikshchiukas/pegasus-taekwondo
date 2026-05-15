@@ -586,10 +586,21 @@
   .form-group input,
   .form-group select,
   .form-group textarea {
-    width: 100%; background: rgba(13,27,42,0.8);
+    width: 100%; background: rgba(34,34,40,0.95);
     border: 0.5px solid rgba(201,168,76,0.25); border-radius: 2px; padding: 12px 16px;
     font-family: 'Lato', sans-serif; font-size: 14px; color: var(--white); outline: none;
     transition: border-color 0.2s;
+    -webkit-text-fill-color: var(--white);
+    caret-color: var(--white);
+  }
+  .form-group input:-webkit-autofill,
+  .form-group input:-webkit-autofill:hover,
+  .form-group input:-webkit-autofill:focus,
+  .form-group select:-webkit-autofill,
+  .form-group textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #222228 inset !important;
+    -webkit-text-fill-color: var(--white) !important;
+    border-color: rgba(201,168,76,0.25) !important;
   }
   .form-group input::placeholder,
   .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
@@ -597,7 +608,7 @@
   .form-group select:focus,
   .form-group textarea:focus { border-color: var(--gold); }
   .form-group select { appearance: none; cursor: pointer; }
-  .form-group select option { background: var(--navy); }
+  .form-group select option { background: #222228; color: var(--white); }
   .form-group textarea { resize: vertical; min-height: 110px; }
   .form-submit {
     width: 100%; padding: 15px;
@@ -695,32 +706,41 @@
     color: var(--gold); margin-bottom: 20px; text-align: center;
   }
   .tenets-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
-  /* 5th box sits in middle column on desktop */
-  .tenet-last { grid-column: 2; }
+  /* 5th box no longer needs special placement */
+  .tenet-last { grid-column: unset; }
   .tenet-box {
     border: 0.5px solid var(--border);
     border-radius: 8px;
     background: var(--gold-pale);
-    padding: 16px 12px;
-    text-align: center;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
     transition: background 0.2s, border-color 0.2s;
   }
   .tenet-box:hover {
     background: rgba(201,168,76,0.18);
     border-color: rgba(201,168,76,0.4);
   }
-  .tenet-num { display: none; }
-  .tenet-korean {
-    display: block; font-size: 11px; color: rgba(201,168,76,0.45); font-weight: 400;
-    letter-spacing: 0.06em; margin-top: 4px; line-height: 1.2;
+  .tenet-num {
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--gold-pale); border: 0.5px solid var(--border);
+    font-family: 'Cinzel', serif; font-size: 11px; font-weight: 700;
+    color: var(--gold); letter-spacing: 0.05em;
   }
   .tenet-eng {
     display: block; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--white); font-weight: 600;
+  }
+  .tenet-korean {
+    display: block; font-size: 11px; color: rgba(201,168,76,0.45); font-weight: 400;
+    letter-spacing: 0.06em; margin-top: 2px; line-height: 1.2;
   }
 
   /* ─── MASTER ─── */
@@ -1179,7 +1199,7 @@
   </table>
 
   <p style="margin-top: 20px; font-size: 13px; color: var(--muted);">
-    📍 Tottenham Green Pools & Fitness, 1 Philip Lane, London N15 4JA &nbsp;·&nbsp;
+    📍 1 Philip Lane, Tottenham Green Leisure Centre, London N15 4JA &nbsp;·&nbsp;
     📞 <a href="tel:07984004647" style="color:var(--gold)">07984 004647</a>
   </p>
 
@@ -1234,7 +1254,7 @@
           <div class="contact-info-icon">📍</div>
           <div>
             <div class="contact-info-label">Address</div>
-            <div class="contact-info-val">Tottenham Green Pools & Fitness<br>1 Philip Lane, London N15 4JA</div>
+            <div class="contact-info-val">1 Philip Lane<br>Tottenham Green Leisure Centre<br>London N15 4JA</div>
           </div>
         </div>
         <div class="contact-info-item">
@@ -1305,7 +1325,7 @@
         <div class="form-notice" id="formNotice"></div>
 
         <p class="emailjs-note">
-          This form uses <a href="https://www.emailjs.com" target="_blank">EmailJS</a> to send emails directly.<br>
+          This form uses <a href="https://www.emailjs.com" target="_blank" style="color:rgba(255,255,255,0.4);text-decoration:none;">EmailJS</a> to send emails directly.<br>
           To activate: add your EmailJS <strong>Public Key</strong>, <strong>Service ID</strong> and <strong>Template ID</strong> in the script below.
         </p>
       </form>
